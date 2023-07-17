@@ -7,17 +7,17 @@ let data = [];
 function App() {
     const [questionNumber, setQuestionNumber] = React.useState(1);
     const [isStop, setIsStop] = React.useState(false);
-    const [earned, setEarned] = React.useState('$0');
+    const [earned, setEarned] = React.useState('₹0');
     const [loading, setLoading] = React.useState(true);
     const subscribed = React.useRef(false);
     const moneyPyramid = React.useMemo(
         () =>
             [
                 { id: 1, amount: "₹ 1,00,000" },
-                { id: 2, amount: "$₹ 10,00,000" },
-                { id: 3, amount: "$₹ 25,00,000" },
-                { id: 4, amount: "$₹ 50,00,000" },
-                { id: 5, amount: "$₹ 1,00,00,000" },
+                { id: 2, amount: "₹ 10,00,000" },
+                { id: 3, amount: "₹ 25,00,000" },
+                { id: 4, amount: "₹ 50,00,000" },
+                { id: 5, amount: "₹ 1,00,00,000" },
 
             ].reverse(),
         []
@@ -76,7 +76,6 @@ function App() {
         return (
             <div className="app">
                 <div className="main">
-                    {/* Updated below line of code */}
                     {(isStop || questionNumber >= data.length) ? <h1 className="endText">You've earned {earned} </h1> :
                         <>
                             <div className="top"></div>
