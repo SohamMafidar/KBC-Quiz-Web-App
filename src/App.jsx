@@ -1,5 +1,6 @@
 import React from "react";
 import Trivia from "./components/Trivia";
+import StartGame from "./components/StartGame";
 import { FidgetSpinner } from "react-loader-spinner";
 import { collectAllOptions } from "./Helper";
 
@@ -9,20 +10,21 @@ function App() {
     const [isStop, setIsStop] = React.useState(false);
     const [earned, setEarned] = React.useState('₹0');
     const [loading, setLoading] = React.useState(true);
+    const [isGameStart, setIsGameStart] = React.useState(false);
     const subscribed = React.useRef(false);
     const moneyPyramid = React.useMemo(
         () =>
             [
-                { id: 1, amount: "₹ 1,00,000" },
-                { id: 2, amount: "₹ 10,00,000" },
-                { id: 3, amount: "₹ 25,00,000" },
-                { id: 4, amount: "₹ 50,00,000" },
                 { id: 5, amount: "₹ 1,00,00,000" },
+                { id: 4, amount: "₹ 50,00,000" },
+                { id: 3, amount: "₹ 25,00,000" },
+                { id: 2, amount: "₹ 10,00,000" },
+                { id: 1, amount: "₹ 1,00,000" },
 
-            ].reverse(),
+            ],
         []
     );
-
+    //* Pulls the data from api
     React.useEffect(() => {
         const pullData = async () => {
             setLoading(true);
@@ -34,7 +36,6 @@ function App() {
                 data = respData;
                 setLoading(false);
                 data = await collectAllOptions(data);
-                console.log(data);
             } catch (error) {
                 console.log(error.message);
             }
@@ -50,12 +51,12 @@ function App() {
         };
     }, []);
 
-
+    //* calculates how much money is earned
     React.useEffect(() => {
         questionNumber > 1 && setEarned(moneyPyramid.find((item) => item.id === questionNumber - 1).amount)
     }, [questionNumber, moneyPyramid])
-    console.log(data);
-    if (loading) {
+
+    if (loading && isGameStart) {
         return (
             <>
                 <FidgetSpinner
@@ -75,33 +76,38 @@ function App() {
     else {
         return (
             <div className="app">
-                <div className="main">
-                    {(isStop || questionNumber >= data.length) ? <h1 className="endText">You've earned {earned} </h1> :
-                        <>
-                            <div className="top"></div>
-                            <div className="bottom">
-                                <Trivia data={data}
-                                    questionNumber={questionNumber}
-                                    setQuestionNumber={setQuestionNumber}
-                                    setIsStop={setIsStop} />
-                            </div>
-                        </>
-                    }
-                </div>
-                <div className="pyramid">
-                    <ul className="moneyList">
-                        {moneyPyramid.map((m) => {
-                            return (
-                                <li className={questionNumber === m.id ? 'moneyListItem active' : 'moneyListItem'}>
-                                    <span className="moneyListItemNumber">{m.id}</span>
-                                    <span className="moneyListItemAmount">{m.amount}</span>
-                                </li>
-                            )
-                        })}
+                {isGameStart ? (
+                    <>
+                        <div className="main">
+                            {(isStop || questionNumber >= data.length) ? <h1 className="endText">You've earned {earned} </h1> :
+                                <>
+                                    <div className="top"></div>
+                                    <div className="bottom">
+                                        <Trivia data={data}
+                                            questionNumber={questionNumber}
+                                            setQuestionNumber={setQuestionNumber}
+                                            setIsStop={setIsStop} />
+                                    </div>
+                                </>
+                            }
+                        </div>
+
+                        <div className="pyramid">
+                            <ul className="moneyList">
+                                {moneyPyramid.map((m) => {
+                                    return (
+                                        <li className={questionNumber === m.id ? 'moneyListItem active' : 'moneyListItem'}>
+                                            <span className="moneyListItemNumber">{m.id}</span>
+                                            <span className="moneyListItemAmount">{m.amount}</span>
+                                        </li>
+                                    )
+                                })}
 
 
-                    </ul>
-                </div>
+                            </ul>
+                        </div>
+                    </>
+                ) : <StartGame setIsGameStart={setIsGameStart} />}
 
             </div>
         );

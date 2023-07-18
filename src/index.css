@@ -12,6 +12,38 @@
   background-color: #020230;
 }
 
+.start{
+  width: 50%;
+  height: 37vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: #22074d;
+}
+
+.start h1{
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.start button{
+  width: 34%;
+  height: 19%;
+  text-transform: uppercase;
+  color: white;
+  font-size: 21px;
+  background-color: black;
+  font-weight: bold;
+  border: 0px;
+}
+
 .main {
   width: 75%;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0), #020230),
@@ -59,21 +91,6 @@
 .top {
   height: 50%;
   position: relative;
-}
-
-.timer {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  border: 5px solid white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  bottom: 10px;
-  left: 80px;
-  font-size: 30px;
-  font-weight: 700;
 }
 
 .bottom {
@@ -181,22 +198,7 @@
   margin: auto;
 }
 
-.start {
-  width: 250px;
-  height: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  position: relative;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-}
-
-.startInput {
+/* .startInput {
   width: 100%;
   height: 30px;
   border: none;
@@ -217,4 +219,4 @@
   cursor: pointer;
   font-size: 18px;
   font-weight: 500;
-}
+} */
