@@ -3,6 +3,8 @@ import Trivia from "./components/Trivia";
 import StartGame from "./components/StartGame";
 import { FidgetSpinner } from "react-loader-spinner";
 import { collectAllOptions } from "./Helper";
+import expert from "./assets/ask-the-expert.svg";
+import fifty from "./assets/fifty-fifty.svg";
 
 let data = [];
 function App() {
@@ -15,11 +17,16 @@ function App() {
     const moneyPyramid = React.useMemo(
         () =>
             [
-                { id: 5, amount: "₹ 1,00,00,000" },
-                { id: 4, amount: "₹ 50,00,000" },
-                { id: 3, amount: "₹ 25,00,000" },
-                { id: 2, amount: "₹ 10,00,000" },
-                { id: 1, amount: "₹ 1,00,000" },
+                { id: 10, amount: "₹5,00,00,000" },
+                { id: 9, amount: "₹1,00,00,000" },
+                { id: 8, amount: "₹50,00,000" },
+                { id: 7, amount: "₹25,00,000" },
+                { id: 6, amount: "₹12,50,000" },
+                { id: 5, amount: "₹6,40,000" },
+                { id: 4, amount: "₹3,20,000" },
+                { id: 3, amount: "₹1,00,000" },
+                { id: 2, amount: "₹50,000" },
+                { id: 1, amount: "₹25,000" },
 
             ],
         []
@@ -30,12 +37,13 @@ function App() {
             setLoading(true);
             try {
                 const resp = await fetch(
-                    "https://the-trivia-api.com/api/questions?categories=general_knowledge&limit=5&difficulty=easy"
+                    "https://the-trivia-api.com/api/questions?categories=general_knowledge&limit=10&difficulty=easy"
                 );
                 const respData = await resp.json();
                 data = respData;
                 setLoading(false);
                 data = await collectAllOptions(data);
+                console.log(data);
             } catch (error) {
                 console.log(error.message);
             }
@@ -79,7 +87,7 @@ function App() {
                 {isGameStart ? (
                     <>
                         <div className="main">
-                            {(isStop || questionNumber >= data.length) ? <h1 className="endText">You've earned {earned} </h1> :
+                            {(isStop || questionNumber > data.length) ? <h1 className="endText">You've earned {earned} </h1> :
                                 <>
                                     <div className="top"></div>
                                     <div className="bottom">
@@ -93,6 +101,14 @@ function App() {
                         </div>
 
                         <div className="pyramid">
+                            <div className="helpline">
+                                <button className="fifty-fifty">
+                                    <img src={expert} alt="expert" className="helpline-img" />
+                                </button>
+                                <button className="ask-the-expert">
+                                    <img src={fifty} alt="half" className="helpline-img" />
+                                </button>
+                            </div>
                             <ul className="moneyList">
                                 {moneyPyramid.map((m) => {
                                     return (
@@ -102,8 +118,6 @@ function App() {
                                         </li>
                                     )
                                 })}
-
-
                             </ul>
                         </div>
                     </>

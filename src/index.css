@@ -56,8 +56,19 @@
   width: 25%;
   background-color: #020230;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.helpline{
+  display: flex;
+  gap: 40px;
+}
+
+.helpline-img{
+  width: 32px;
+  height: auto;
 }
 
 .moneyList {
