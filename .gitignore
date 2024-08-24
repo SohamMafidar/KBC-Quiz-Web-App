@@ -11,6 +11,12 @@
 # production
 /build
 
+# API key
+.env
+
+# gitignore
+.gitignore
+
 # misc
 .DS_Store
 .env.local

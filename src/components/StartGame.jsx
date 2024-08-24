@@ -13,7 +13,7 @@ function StartGame({ setIsGameStart }) {
             <h1>
                 Click to start the game
             </h1>
-            <button onClick={startGame}>Let's play</button>
+            <button onClick={startGame} className='game-btn'>Let's play</button>
         </div>
     )
 }

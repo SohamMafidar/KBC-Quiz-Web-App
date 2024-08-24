@@ -1,10 +1,9 @@
 import React from "react";
 import Trivia from "./components/Trivia";
 import StartGame from "./components/StartGame";
+import Helpline from "./components/Helpline";
 import { FidgetSpinner } from "react-loader-spinner";
 import { collectAllOptions } from "./Helper";
-import expert from "./assets/ask-the-expert.svg";
-import fifty from "./assets/fifty-fifty.svg";
 
 let data = [];
 function App() {
@@ -13,6 +12,7 @@ function App() {
     const [earned, setEarned] = React.useState('₹0');
     const [loading, setLoading] = React.useState(true);
     const [isGameStart, setIsGameStart] = React.useState(false);
+    const [isFiftyActive, setIsFiftyActive] = React.useState(false);
     const subscribed = React.useRef(false);
     const moneyPyramid = React.useMemo(
         () =>
@@ -43,7 +43,6 @@ function App() {
                 data = respData;
                 setLoading(false);
                 data = await collectAllOptions(data);
-                console.log(data);
             } catch (error) {
                 console.log(error.message);
             }
@@ -94,21 +93,16 @@ function App() {
                                         <Trivia data={data}
                                             questionNumber={questionNumber}
                                             setQuestionNumber={setQuestionNumber}
-                                            setIsStop={setIsStop} />
+                                            setIsStop={setIsStop}
+                                            isFiftyActive={isFiftyActive}
+                                        />
                                     </div>
                                 </>
                             }
                         </div>
 
                         <div className="pyramid">
-                            <div className="helpline">
-                                <button className="fifty-fifty">
-                                    <img src={expert} alt="expert" className="helpline-img" />
-                                </button>
-                                <button className="ask-the-expert">
-                                    <img src={fifty} alt="half" className="helpline-img" />
-                                </button>
-                            </div>
+                            <Helpline data={data} questionNumber={questionNumber} setIsFiftyActive={setIsFiftyActive} />
                             <ul className="moneyList">
                                 {moneyPyramid.map((m) => {
                                     return (
