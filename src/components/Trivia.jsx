@@ -4,13 +4,12 @@ import correct from '../sounds/correct.mp3';
 import wrong from '../sounds/wrong.mp3';
 import play from '../sounds/play.mp3';
 // import wait from '../sounds/wait.mp3';
-
 function Trivia({ data, questionNumber, setQuestionNumber, setIsStop, isFiftyActive }) {
 
     const [question, setQuestion] = React.useState(null);
     const [selectedAnswer, setSelectedAnswer] = React.useState(null);
     const [className, setClassName] = React.useState('answer');
-    const [letsPlay] = useSound(play);
+    const [letsPlay] = useSound(play, { preload: true });
     const [correctAnswerSound] = useSound(correct);
     const [wrongAnswerSound] = useSound(wrong);
     const [updatedOptions, setUpdatedOptions] = React.useState([]);
@@ -44,8 +43,8 @@ function Trivia({ data, questionNumber, setQuestionNumber, setIsStop, isFiftyAct
     const handleClick = (item) => {
         setSelectedAnswer(item);
         setClassName('answer active');
-        delay(3000, () => setClassName(item.correct ? 'answer correct' : 'answer wrong'))
-        delay(5000, () => {
+        delay(1000, () => setClassName(item.correct ? 'answer correct' : 'answer wrong'))
+        delay(3000, () => {
             if (item.correct) {
                 correctAnswerSound();
                 delay(1000, () => {
@@ -69,22 +68,15 @@ function Trivia({ data, questionNumber, setQuestionNumber, setIsStop, isFiftyAct
                 {question?.question}
             </div>
             <div className='answers'>
-                {/* {updatedOptions.length === 0 && question?.answers.map((item) => {
-                    return (
-                        <div className={selectedAnswer === item ? className : 'answer'} onClick={() => handleClick(item)}>{item.text}</div>
-                    )
-                })} */}
-                <div className='answers'>
-                    {updatedOptions.length > 0 ? updatedOptions.map((item) => (
-                        <div key={item.text} className={selectedAnswer === item ? className : 'answer'} onClick={() => handleClick(item)}>{item.text}</div>
-                    )) :
-                        question?.answers.map((item) => {
-                            return (
-                                <div className={selectedAnswer === item ? className : 'answer'} onClick={() => handleClick(item)}>{item.text}</div>
-                            )
-                        })
-                    }
-                </div>
+                {updatedOptions.length > 0 ? updatedOptions.map((item) => (
+                    <div key={item.text} className={selectedAnswer === item ? className : 'answer'} onClick={() => handleClick(item)}>{item.text}</div>
+                )) :
+                    question?.answers.map((item) => {
+                        return (
+                            <div className={selectedAnswer === item ? className : 'answer'} onClick={() => handleClick(item)}>{item.text}</div>
+                        )
+                    })
+                }
             </div>
         </div>
     )
