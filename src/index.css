@@ -233,25 +233,22 @@ button:disabled{
   margin: auto;
 }
 
-/* .startInput {
-  width: 100%;
-  height: 30px;
-  border: none;
-  border-radius: 5px;
-  text-align: center;
-  font-size: 18px;
-}
-
-.startInput:focus {
-  outline: none;
-}
-
-.startButton {
-  width: 100%;
-  height: 30px;
-  border: none;
-  border-radius: 5px;
+.ant-modal-close{
+  position: absolute;
+  top: 18px;
+  inset-inline-end: 12px;
+  z-index: 1010;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.45);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  background: transparent;
+  border-radius: 4px;
+  width: 54px;
+  height: 35px;
+  border: 0;
+  outline: 0;
   cursor: pointer;
-  font-size: 18px;
-  font-weight: 500;
-} */
+  transition: color 0.2s, background-color 0.2s;
+}
