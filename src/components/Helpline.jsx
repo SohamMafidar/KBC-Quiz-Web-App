@@ -11,6 +11,7 @@ export default function Helpline({ data, questionNumber, setIsFiftyActive }) {
     const [PopupModalOpen, setPopupModalOpen] = React.useState(false)
     const [gptData, setGptData] = React.useState([]);
     const [isExpertButtonDisabled, setIsExpertButtonDisabled] = React.useState(false); // State for button disabled
+    const [isFiftyButtonDisabled, setIsFiftyButtonDisabled] = React.useState(false);
     //! Always frame content saying "in not more than 10 words"
     const expertClickHandler = async () => {
         //* Constructing object that would have all answer options and question to be sent to GPT
@@ -44,7 +45,7 @@ export default function Helpline({ data, questionNumber, setIsFiftyActive }) {
     }
 
     const fiftyClickHandler = (event) => {
-        event.currentTarget.disabled = true;
+        setIsFiftyButtonDisabled(true);
         setIsFiftyActive(true);
     }
 
@@ -55,7 +56,7 @@ export default function Helpline({ data, questionNumber, setIsFiftyActive }) {
             </div> :
             //* Expert answer state === false meaning modal is not open */
             <div className="helpline">
-                <button className="game-btn" id="fifty-fifty" onClick={fiftyClickHandler}>
+                <button className="game-btn" id="fifty-fifty" onClick={fiftyClickHandler} disabled={isFiftyButtonDisabled}>
                     Fifty Fifty
                 </button>
                 <button className="game-btn" id="ask-the-expert" onClick={expertClickHandler} disabled={isExpertButtonDisabled}>
