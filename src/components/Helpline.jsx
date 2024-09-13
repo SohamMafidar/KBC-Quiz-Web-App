@@ -1,17 +1,12 @@
 import React from 'react'
-import OpenAI from "openai";
 import Popup from "./Popup";
 export default function Helpline({ data, questionNumber, setIsFiftyActive }) {
-    //? Free API key
-    const openai = new OpenAI({
-        apiKey: process.env.REACT_APP_API_KEY,
-        baseURL: process.env.REACT_APP_BASE_URL,
-        dangerouslyAllowBrowser: true
-    });
     const [PopupModalOpen, setPopupModalOpen] = React.useState(false)
-    const [gptData, setGptData] = React.useState([]);
+    const [gptData, setGptData] = React.useState("");
     const [isExpertButtonDisabled, setIsExpertButtonDisabled] = React.useState(false); // State for button disabled
     const [isFiftyButtonDisabled, setIsFiftyButtonDisabled] = React.useState(false);
+    // const [isFetchingError, setIsFetchingError] = React.useState(false);
+
     //! Always frame content saying "in not more than 10 words"
     const expertClickHandler = async () => {
         //* Constructing object that would have all answer options and question to be sent to GPT
@@ -24,30 +19,39 @@ export default function Helpline({ data, questionNumber, setIsFiftyActive }) {
             question: data[questionNumber - 1].question
         }
         try {
-            const completion = await openai.chat.completions.create({
-                model: "pai-001",
-                messages: [
-                    { role: "system", content: "You are an expert in trivia and general knowledge and are an assistant in a quiz show helping users when they are in need" },
-                    {
-                        role: "user",
-                        content: contentObj,
-                    },
-                ],
+            setGptData("")
+            const response = await fetch("/.netlify/functions/openAI", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(contentObj),
             });
-            setGptData(completion.choices[0].message.content);
-            console.log(gptData);
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                setGptData("Null");
+                throw new Error(errorData.error || 'Unknown error occurred');
+            }
+            const respData = await response.json();
+            setGptData(respData);
+
         } catch (error) {
+            console.log("Error fetching results: ", error)
             setGptData("Null");
-            console.log("Error fetching results")
         }
-        setPopupModalOpen(true);
-        setIsExpertButtonDisabled(true);
+        finally {
+            setPopupModalOpen(true);
+            setIsExpertButtonDisabled(true);
+        }
+
     }
 
     const fiftyClickHandler = (event) => {
         setIsFiftyButtonDisabled(true);
         setIsFiftyActive(true);
     }
+
 
     return (
         PopupModalOpen ?
