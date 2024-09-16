@@ -37,7 +37,7 @@ export default function Helpline({ data, questionNumber, setIsFiftyActive }) {
             setGptData(respData);
 
         } catch (error) {
-            console.log("Error fetching results: ", error)
+            console.log("Error fetching results: ", error.message)
             setGptData("Null");
         }
         finally {

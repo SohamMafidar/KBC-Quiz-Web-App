@@ -26,21 +26,25 @@ function App() {
             setLoading(true);
             try {
                 const resp = await fetch(
-                    "https://the-trivia-api.com/api/questions?categories=general_knowledge&limit=10&difficulty=easy"
+                    "/.netlify/functions/TriviaApi"
                 );
+                if (!resp.ok) {
+                    const errorData = await resp.json();
+                    throw new Error(errorData.error || 'Unknown error occurred');
+                }
                 const respData = await resp.json();
                 data = respData;
                 setLoading(false);
-                data = await collectAllOptions(data);
+                // data = await collectAllOptions(data);
             } catch (error) {
-                console.log(error.message);
+                console.log("Error calling Trivia api: ", error.message);
             }
         };
         if (!subscribed.current) {
             subscribed.current = true;
             pullData();
         }
-        //?cleanup function
+        //? cleanup function
         return () => {
             data = [];
             subscribed.current = false;
