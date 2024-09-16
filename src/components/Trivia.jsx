@@ -4,7 +4,7 @@ import correct from '../sounds/correct.mp3';
 import wrong from '../sounds/wrong.mp3';
 import play from '../sounds/play.mp3';
 // import wait from '../sounds/wait.mp3';
-function Trivia({ data, questionNumber, setQuestionNumber, setIsStop, isFiftyActive }) {
+function Trivia({ id, data, questionNumber, setQuestionNumber, setIsStop, isFiftyActive }) {
 
     const [question, setQuestion] = React.useState(null);
     const [selectedAnswer, setSelectedAnswer] = React.useState(null);
@@ -68,12 +68,12 @@ function Trivia({ data, questionNumber, setQuestionNumber, setIsStop, isFiftyAct
                 {question?.question}
             </div>
             <div className='answers'>
-                {updatedOptions.length > 0 ? updatedOptions.map((item) => (
-                    <div key={item.text} className={selectedAnswer === item ? className : 'answer'} onClick={() => handleClick(item)}>{item.text}</div>
+                {updatedOptions.length > 0 ? updatedOptions.map((item, index) => (
+                    <div key={id + index} className={selectedAnswer === item ? className : 'answer'} onClick={() => handleClick(item)}>{item.text}</div>
                 )) :
-                    question?.answers.map((item) => {
+                    question?.answers.map((item, index) => {
                         return (
-                            <div className={selectedAnswer === item ? className : 'answer'} onClick={() => handleClick(item)}>{item.text}</div>
+                            <div key={id + index} className={selectedAnswer === item ? className : 'answer'} onClick={() => handleClick(item)}>{item.text}</div>
                         )
                     })
                 }

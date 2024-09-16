@@ -4,6 +4,7 @@ import StartGame from "./components/StartGame";
 import Helpline from "./components/Helpline";
 import { FidgetSpinner } from "react-loader-spinner";
 import { collectAllOptions } from "./Helper";
+import { arr } from "./moneyPyramid";
 
 let data = [];
 function App() {
@@ -14,21 +15,9 @@ function App() {
     const [isGameStart, setIsGameStart] = React.useState(false);
     const [isFiftyActive, setIsFiftyActive] = React.useState(false);
     const subscribed = React.useRef(false);
-    const moneyPyramid = React.useMemo(
-        () =>
-            [
-                { id: 10, amount: "₹5,00,00,000" },
-                { id: 9, amount: "₹1,00,00,000" },
-                { id: 8, amount: "₹50,00,000" },
-                { id: 7, amount: "₹25,00,000" },
-                { id: 6, amount: "₹12,50,000" },
-                { id: 5, amount: "₹6,40,000" },
-                { id: 4, amount: "₹3,20,000" },
-                { id: 3, amount: "₹1,00,000" },
-                { id: 2, amount: "₹50,000" },
-                { id: 1, amount: "₹25,000" },
 
-            ],
+    const moneyPyramid = React.useMemo(
+        () => arr,
         []
     );
     //* Pulls the data from api
@@ -90,7 +79,7 @@ function App() {
                                 <>
                                     <div className="top"></div>
                                     <div className="bottom">
-                                        <Trivia data={data}
+                                        <Trivia id={moneyPyramid[questionNumber - 1].uuid} data={data}
                                             questionNumber={questionNumber}
                                             setQuestionNumber={setQuestionNumber}
                                             setIsStop={setIsStop}
@@ -106,7 +95,8 @@ function App() {
                             <ul className="moneyList">
                                 {moneyPyramid.map((m) => {
                                     return (
-                                        <li className={questionNumber === m.id ? 'moneyListItem active' : 'moneyListItem'}>
+                                        <li key={m.uuid
+                                        } className={questionNumber === m.id ? 'moneyListItem active' : 'moneyListItem'}>
                                             <span className="moneyListItemNumber">{m.id}</span>
                                             <span className="moneyListItemAmount">{m.amount}</span>
                                         </li>

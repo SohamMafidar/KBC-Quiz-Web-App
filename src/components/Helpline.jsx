@@ -7,7 +7,7 @@ export default function Helpline({ data, questionNumber, setIsFiftyActive }) {
     const [isFiftyButtonDisabled, setIsFiftyButtonDisabled] = React.useState(false);
     // const [isFetchingError, setIsFetchingError] = React.useState(false);
 
-    //! Always frame content saying "in not more than 10 words"
+
     const expertClickHandler = async () => {
         //* Constructing object that would have all answer options and question to be sent to GPT
         let ansOptions = "";
