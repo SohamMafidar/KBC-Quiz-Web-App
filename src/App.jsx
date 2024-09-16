@@ -3,7 +3,6 @@ import Trivia from "./components/Trivia";
 import StartGame from "./components/StartGame";
 import Helpline from "./components/Helpline";
 import { FidgetSpinner } from "react-loader-spinner";
-import { collectAllOptions } from "./Helper";
 import { arr } from "./moneyPyramid";
 
 let data = [];
