@@ -24,9 +24,7 @@ function App() {
         const pullData = async () => {
             setLoading(true);
             try {
-                const resp = await fetch(
-                    "/.netlify/functions/TriviaApi"
-                );
+                const resp = await fetch("/.netlify/functions/TriviaApi");
                 if (!resp.ok) {
                     const errorData = await resp.json();
                     throw new Error(errorData.error || 'Unknown error occurred');
@@ -57,7 +55,7 @@ function App() {
 
     if (loading && isGameStart) {
         return (
-            <>
+            <div className="loading-screen">
                 <FidgetSpinner
                     visible={true}
                     height="80"
@@ -68,7 +66,7 @@ function App() {
                     ballColors={["#ff0000", "#00ff00", "#0000ff"]}
                     backgroundColor="#F4442E"
                 />
-            </>
+            </div>
         );
     }
 
