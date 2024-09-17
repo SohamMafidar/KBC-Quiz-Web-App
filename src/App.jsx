@@ -24,7 +24,7 @@ function App() {
         const pullData = async () => {
             setLoading(true);
             try {
-                const resp = await fetch("/.netlify/functions/TriviaApi");
+                const resp = await fetch("https://kbc-backend.netlify.app/.netlify/functions/TriviaApi");
                 if (!resp.ok) {
                     const errorData = await resp.json();
                     throw new Error(errorData.error || 'Unknown error occurred');
