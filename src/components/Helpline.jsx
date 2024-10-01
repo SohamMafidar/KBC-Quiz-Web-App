@@ -20,7 +20,7 @@ export default function Helpline({ data, questionNumber, setIsFiftyActive }) {
         }
         try {
             setGptData("")
-            const response = await fetch("/.netlify/functions/openAI", {
+            const response = await fetch("https://kbc-backend.netlify.app/.netlify/functions/openAI", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
