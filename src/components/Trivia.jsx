@@ -2,22 +2,16 @@ import React from 'react'
 import useSound from 'use-sound';
 import correct from '../sounds/correct.mp3';
 import wrong from '../sounds/wrong.mp3';
-import play from '../sounds/play.mp3';
-// import wait from '../sounds/wait.mp3';
+// import play from '../sounds/play.mp3';
+
 function Trivia({ id, data, questionNumber, setQuestionNumber, setIsStop, isFiftyActive }) {
 
     const [question, setQuestion] = React.useState(null);
     const [selectedAnswer, setSelectedAnswer] = React.useState(null);
     const [className, setClassName] = React.useState('answer');
-    const [letsPlay] = useSound(play, { preload: true });
     const [correctAnswerSound] = useSound(correct);
     const [wrongAnswerSound] = useSound(wrong);
     const [updatedOptions, setUpdatedOptions] = React.useState([]);
-    // const [waitT] = useSound(wait);
-
-    React.useEffect(() => {
-        letsPlay();
-    }, [letsPlay])
 
     React.useEffect(() => {
         setQuestion(data[questionNumber - 1]);
