@@ -84,6 +84,55 @@ button:disabled{
   flex-direction: column;
 }
 
+.timer {
+width: 15vw;
+  /* Adjusts with viewport width */
+  height: 15vw;
+  /* Ensures the timer remains a perfect circle */
+  max-width: 70px;
+  /* Upper limit for width */
+  max-height: 70px;
+  /* Upper limit for height */
+  border-radius: 50%;
+  border: 0.5rem solid #FFC300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 2vh;
+  /* Adjusting position based on viewport height */
+  left: 10vw;
+  /* Adjusting position based on viewport width */
+  font-size: 2rem;
+  /* Scalable font size */
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .timer {
+    width: 10vw;
+    height: 10vw;
+    max-width: 100px;
+    max-height: 100px;
+    bottom: 3vh;
+    left: 12vw;
+    font-size: 2.5rem;
+  }
+}
+
+/* Very small screens (mobiles) */
+@media (max-width: 480px) {
+  .timer {
+    width: 12vw;
+    height: 12vw;
+    max-width: 50px;
+    max-height: 50px;
+    bottom: 1vh;
+    left: 8vw;
+    font-size: 1.5rem;
+  }
+}
+
 .pyramid {
   width: 25%;
   background-color: #020230;

@@ -2,6 +2,7 @@ import React from "react";
 import Trivia from "./components/Trivia";
 import StartGame from "./components/StartGame";
 import Helpline from "./components/Helpline";
+import Timer from "./components/Timer";
 import { FidgetSpinner } from "react-loader-spinner";
 import { arr } from "./moneyPyramid";
 
@@ -78,7 +79,11 @@ function App() {
                         <div className="main">
                             {(isStop || questionNumber > data.length) ? <h1 className="endText">You've earned {earned} </h1> :
                                 <>
-                                    <div className="top"></div>
+                                    <div className="top">
+                                        <div className="timer">
+                                            <Timer setIsStop={setIsStop} questionNumber={questionNumber} />
+                                        </div>
+                                    </div>
                                     <div className="bottom">
                                         <Trivia id={moneyPyramid[questionNumber - 1].uuid} data={data}
                                             questionNumber={questionNumber}

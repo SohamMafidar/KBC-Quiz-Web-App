@@ -2,7 +2,6 @@ import React from 'react'
 import useSound from 'use-sound';
 import correct from '../sounds/correct.mp3';
 import wrong from '../sounds/wrong.mp3';
-// import play from '../sounds/play.mp3';
 
 function Trivia({ id, data, questionNumber, setQuestionNumber, setIsStop, isFiftyActive }) {
 
